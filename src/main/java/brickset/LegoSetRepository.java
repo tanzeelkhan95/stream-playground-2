@@ -3,6 +3,8 @@ package brickset;
 import repository.Repository;
 
 import java.time.Year;
+import java.util.Locale;
+import java.util.logging.Level;
 
 /**
  * Represents a repository of {@code LegoSet} objects.
@@ -22,9 +24,22 @@ public boolean allLegoSetHavingYear2009(){
                 .allMatch(legoSet -> legoSet.getYear().equals(Year.of(2009)));
 }
 
+    /**
+     * prints all tags in a lego set, removes duplicates by using .distint() function.
+     */
+    public void PrintAllTagsOfLegoSets(){
+    getAll().stream()
+            .filter(legoSet -> legoSet != null)
+            .flatMap(legoSet -> legoSet.getTags().stream())
+            .distinct()
+            .forEach(System.out::println);
+
+}
+
 
     public static void main(String[] args) {
         var repository = new LegoSetRepository();
-        System.out.println(repository.allLegoSetHavingYear2009());;
+        System.out.println(repository.allLegoSetHavingYear2009());
+        repository.PrintAllTagsOfLegoSets();
     }
 }
